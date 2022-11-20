@@ -62,7 +62,7 @@ REGISTER_CLASS_METHOD(A, f2, int, int);
 ```
 其中、f2为成员函数的名称，接着第一个int为函数返回值，后面为函数的可变参数类型列表。
 
-用法
+## usage
 
 ```c++
 #include <iostream>
