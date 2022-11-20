@@ -20,7 +20,7 @@ int main()
     a->set("m_age", 30);
 
     a->call("f1");
-    int num = a->call<int>("f2");
+    int num = a->call<int>("f2", 123);
 
     return 0;
 }
