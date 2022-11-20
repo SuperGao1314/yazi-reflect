@@ -41,14 +41,6 @@ void Object::set(const string & fieldName, const char * value)
     *((string *)((unsigned char *)(this) + offset)) = string(value);
 }
 
-void Object::call(const string & methodName)
-{
-    ClassMethod * method = Singleton<ClassFactory>::instance()->get_class_method(m_className, methodName);
-    auto func = method->method();
-    typedef std::function<void(decltype(this))> class_method;
-    (*(class_method *)(func))(this);
-}
-
 void ClassFactory::register_class(const string & className, create_object method)
 {
     m_classMap[className] = method;

@@ -36,8 +36,8 @@ public:
     void set(const string & fieldName, const T & value);
     void set(const string & fieldName, const char * value);
     
-    void call(const string & methodName);
-    virtual void show() = 0;
+    template <typename R = void, typename ...Args>
+    R call(const string & methodName, Args... args);
 
 private:
     string m_className;
@@ -89,6 +89,16 @@ void Object::set(const string & fieldName, const T & value)
     ClassField * field = Singleton<ClassFactory>::instance()->get_class_field(m_className, fieldName);
     size_t offset = field->offset();
     *((T *)((unsigned char *)(this) + offset)) = value;
+}
+
+template <typename R, typename ...Args>
+R Object::call(const string & methodName, Args... args)
+{
+    ClassFactory * factory = Singleton<ClassFactory>::instance();
+    ClassMethod * method = factory->get_class_method(m_className, methodName);
+    auto func = method->method();
+    typedef std::function<R(decltype(this), Args...)> class_method;
+    return (*((class_method *)func))(this, args...);
 }
 
 }

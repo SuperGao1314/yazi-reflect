@@ -41,10 +41,9 @@ public:
     className className##fieldName; \
     ClassRegister classRegister##className##fieldName(#className, #fieldName, #fieldType, (size_t)(&(className##fieldName.fieldName)) - (size_t)(&className##fieldName))
 
-#define REGISTER_CLASS_METHOD(className, methodName) \
-    std::function<void(className *)> className##methodName##method = &className::methodName; \
+#define REGISTER_CLASS_METHOD(className, methodName, returnType, ...) \
+    std::function<returnType(className *, ##__VA_ARGS__)> className##methodName##method = &className::methodName; \
     ClassRegister classRegister##className##methodName(#className, #methodName, (uintptr_t)&(className##methodName##method))
-
 
 }
 }

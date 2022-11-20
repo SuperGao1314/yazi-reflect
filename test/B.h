@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 using namespace std;
 
 #include "ClassRegister.h"
@@ -12,11 +12,6 @@ class B : public Object
 public:
     B() : m_name("b") {}
     ~B() {}
-
-    void show()
-    {
-        std::cout << m_name << std::endl;
-    }
 
 private:
     string m_name;
